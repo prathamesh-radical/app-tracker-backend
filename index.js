@@ -43,7 +43,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send("App Tracking");
+    res.send("Hello App Tracking");
 });
 
 app.use('/api/auth', AuthRoute);
