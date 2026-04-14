@@ -9,6 +9,10 @@ export const debtDB = mysql.createPool({
     password: process.env.DEBT_DB_PASSWORD,
     database: process.env.DEBT_DB_NAME,
     port: process.env.DEBT_DB_PORT,
+    family:   4,
+    waitForConnections: true,
+    connectionLimit:    10,
+    queueLimit:         0,
 });
 
 export const mechDB = mysql.createPool({
@@ -17,6 +21,10 @@ export const mechDB = mysql.createPool({
     password: process.env.MECH_DB_PASSWORD,
     database: process.env.MECH_DB_NAME,
     port: process.env.MECH_DB_PORT,
+    family:   4,
+    waitForConnections: true,
+    connectionLimit:    10,
+    queueLimit:         0,
 });
 
 export const moneyDB = mysql.createPool({
@@ -25,6 +33,10 @@ export const moneyDB = mysql.createPool({
     password: process.env.MONEY_DB_PASSWORD,
     database: process.env.MONEY_DB_NAME,
     port: process.env.MONEY_DB_PORT,
+    family:   4,
+    waitForConnections: true,
+    connectionLimit:    10,
+    queueLimit:         0,
 });
 
 export const entryBookDB = mysql.createPool({
@@ -33,4 +45,8 @@ export const entryBookDB = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
+    family:   4,
+    waitForConnections: true,
+    connectionLimit:    10,
+    queueLimit:         0,
 });
