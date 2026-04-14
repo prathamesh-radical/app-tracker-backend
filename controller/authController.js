@@ -48,7 +48,6 @@ export const login = (req, res) => {
 
     try {
         mechDB.query('SELECT * FROM apps WHERE email = ?', [email], async (err, results) => {
-            console.log("err", err);
             if (err) return res.status(500).json({ message: 'Database error', error: err });
 
             if (results.length === 0) {
@@ -68,7 +67,6 @@ export const login = (req, res) => {
             return res.json({ message: 'Login successful', token, user: { id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email } });
         });
     } catch (error) {
-        console.log("error", error);
         res.status(500).json({ message: 'Server error', error });
     }
 };
