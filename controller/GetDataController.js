@@ -1,4 +1,4 @@
-import { debtDB, entryBookDB, mechDB, moneyDB } from "../db/db.js";
+import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB } from "../db/db.js";
 
 export const Debtors = async (req, res) => {
     try {
@@ -98,6 +98,33 @@ export const GuestEntryUsersData = async (req, res) => {
                 return res.status(500).json({ message: "Error fetching values", success: false });
             }
             res.status(200).json({ message: "Visitor entries fetched successfully", success: true, visitorslist: result });
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", success: false });
+    }
+};
+
+export const DanceStudioUsersData = async (req, res) => {
+    try {
+        danceStudioDB.query("SELECT * FROM registration", (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Error fetching values", success: false });
+            }
+            res.status(200).json({ message: "Dance studio entries fetched successfully", success: true, danceStudioList: result });
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", success: false });
+    }
+};
+
+
+export const BuddyWalkStepsData = async (req, res) => {
+    try {
+        buddyWalkDB.query("SELECT * FROM users", (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Error fetching values", success: false });
+            }
+            res.status(200).json({ message: "BuddyWalk steps data fetched successfully", success: true, stepslist: result });
         });
     } catch (error) {
         res.status(500).json({ message: "Internal server error", success: false });
