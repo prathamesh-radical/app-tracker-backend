@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { debtDB, entryBookDB, mechDB, moneyDB } from './db/db.js';
+import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB } from './db/db.js';
 import GetRoutes from './routes/GetdataRoute.js';
 import AuthRoute from './routes/AuthRoute.js';
 
@@ -36,6 +36,22 @@ entryBookDB.getConnection((err) => {
         console.log('DB Connection Failed for Entry Book:', err);
     } else {
         console.log('DB Connected to Entry Book');
+    }
+});
+
+danceStudioDB.getConnection((err) => {
+    if (err) {
+        console.log('DB Connection Failed for Dance Studio:', err);
+    } else {
+        console.log('DB Connected to Dance Studio');
+    }
+});
+
+buddyWalkDB.getConnection((err) => {
+    if (err) {
+        console.log('DB Connection Failed for Buddy Walk:', err);
+    } else {
+        console.log('DB Connected to Buddy Walk');
     }
 });
 
