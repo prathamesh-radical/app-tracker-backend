@@ -1,6 +1,6 @@
 import express from "express";
 import {
-    Debtors, GuestEntry, GuestEntryUsersData, Mechanic, MechanicServicesData, MechanicUsersData, Moneycollect, MoneycollectUsersData
+    BuddyWalkStepsData, DanceStudioUsersData, Debtors, GuestEntry, GuestEntryUsersData, Mechanic, MechanicServicesData, MechanicUsersData, Moneycollect, MoneycollectUsersData
 } from "../controller/GetDataController.js";
 import authenticateToken from "../middleware/verifyToken.js";
 
@@ -14,5 +14,7 @@ GetRoutes.get("/money-collect", authenticateToken, Moneycollect);
 GetRoutes.get("/money-collect-data", authenticateToken, MoneycollectUsersData);
 GetRoutes.get("/guest-entries", authenticateToken, GuestEntry);
 GetRoutes.get("/guest-entries-data", authenticateToken, GuestEntryUsersData);
+GetRoutes.get("/dance-studio-users", authenticateToken, DanceStudioUsersData);
+GetRoutes.get("/buddy-walk-steps", authenticateToken, BuddyWalkStepsData);
 
 export default GetRoutes;

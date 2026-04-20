@@ -42,13 +42,37 @@ export const moneyDB = mysql.createPool({
 });
 
 export const entryBookDB = mysql.createPool({
-    host:               process.env.DB_HOST,
-    user:               process.env.DB_USER,
-    password:           process.env.DB_PASSWORD,
-    database:           process.env.DB_NAME,
-    port:               parseInt(process.env.DB_PORT || '3306'),
+    host:               process.env.Entry_DB_HOST,
+    user:               process.env.Entry_DB_USER,
+    password:           process.env.Entry_DB_PASSWORD,
+    database:           process.env.Entry_DB_NAME,
+    port:               parseInt(process.env.Entry_DB_PORT || '3306'),
     waitForConnections: true,
     connectionLimit:    10,
     connectTimeout:     30000,
     queueLimit:         0,
 });
+
+export const danceStudioDB = mysql.createPool({
+    host:               process.env.DanceStudio_DB_HOST,
+    user:               process.env.DanceStudio_DB_USER,
+    password:           process.env.DanceStudio_DB_PASSWORD,
+    database:           process.env.DanceStudio_DB_NAME,
+    port:               parseInt(process.env.DanceStudio_DB_PORT || '3306'),
+    waitForConnections: true,
+    connectionLimit:    10,
+    connectTimeout:     30000,
+    queueLimit:         0,
+});
+
+export const buddyWalkDB = mysql.createPool({
+    host:               process.env.Buddywalk_DB_HOST,
+    user:               process.env.Buddywalk_DB_USER,
+    password:           process.env.Buddywalk_DB_PASSWORD,
+    database:           process.env.Buddywalk_DB_NAME,
+    port:               parseInt(process.env.Buddywalk_DB_PORT || '3306'),
+    waitForConnections: true,
+    connectionLimit:    10,
+    connectTimeout:     30000,
+    queueLimit:         0,
+}); 
