@@ -12,53 +12,42 @@ import GetDebtDataRoute from './routes/DebtDataRoute.js';
 const app = express();
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "3000", 10);
 
-debtDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Debtors:', err);
-    } else {
-        console.log('DB Connected to Debtors');
-    }
-});
+const dbPools = [
+    { name: 'Mechanic', pool: mechDB },
+    { name: 'Debtors', pool: debtDB },
+    { name: 'Money', pool: moneyDB },
+    { name: 'Entry Book', pool: entryBookDB },
+    { name: 'Dance Studio', pool: danceStudioDB },
+    { name: 'Buddy Walk', pool: buddyWalkDB }
+];
 
-mechDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Mechanic:', err);
-    } else {
-        console.log('DB Connected to Mechanic');
-    }
-});
+const checkConnections = async () => {
+    const results = await Promise.allSettled(
+        dbPools.map(db => 
+            db.pool.promise().getConnection()
+                .then(conn => {
+                    conn.release();
+                    return { name: db.name, status: 'success' };
+                })
+                .catch(err => {
+                    throw { name: db.name, error: err.message };
+                })
+        )
+    );
 
-moneyDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Money:', err);
-    } else {
-        console.log('DB Connected to Money');
-    }
-});
+    const errors = results
+        .filter(r => r.status === 'rejected')
+        .map(r => `${r.reason.name}: ${r.reason.error}`);
 
-entryBookDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Entry Book:', err);
+    if (errors.length === 0) {
+        console.log('✅ All DB Connected Successfully');
     } else {
-        console.log('DB Connected to Entry Book');
+        console.log('❌ DB Connection Issues Found:');
+        errors.forEach(err => console.error(`   - ${err}`));
     }
-});
+};
 
-danceStudioDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Dance Studio:', err);
-    } else {
-        console.log('DB Connected to Dance Studio');
-    }
-});
-
-buddyWalkDB.getConnection((err) => {
-    if (err) {
-        console.log('DB Connection Failed for Buddy Walk:', err);
-    } else {
-        console.log('DB Connected to Buddy Walk');
-    }
-});
+checkConnections();
 
 app.use(cors());
 app.use(express.json());
