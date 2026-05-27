@@ -30,6 +30,7 @@ const checkConnections = async () => {
                     return { name: db.name, status: 'success' };
                 })
                 .catch(err => {
+                    console.log('err', err);
                     const errorMessage = err.message || err.code || JSON.stringify(err);
                     throw { name: db.name, error: errorMessage };
                 })
