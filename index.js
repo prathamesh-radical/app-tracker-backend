@@ -10,7 +10,7 @@ import GetBuddyWalkRoute from './routes/BuddyWalkDataRoute.js';
 import GetDebtDataRoute from './routes/DebtDataRoute.js';
 
 const app = express();
-const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "3000", 10);
+const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "6000", 10);
 
 const dbPools = [
     { name: 'Mechanic', pool: mechDB },
