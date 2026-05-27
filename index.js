@@ -23,14 +23,15 @@ const dbPools = [
 
 const checkConnections = async () => {
     const results = await Promise.allSettled(
-        dbPools.map(db => 
+        dbPools.map(db =>
             db.pool.promise().getConnection()
                 .then(conn => {
                     conn.release();
                     return { name: db.name, status: 'success' };
                 })
                 .catch(err => {
-                    throw { name: db.name, error: err };
+                    const errorMessage = err.message || err.code || JSON.stringify(err);
+                    throw { name: db.name, error: errorMessage };
                 })
         )
     );
