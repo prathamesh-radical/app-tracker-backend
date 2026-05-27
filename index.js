@@ -35,10 +35,12 @@ const checkConnections = async () => {
         )
     );
 
+    console.log("results", results);
+
     const errors = results
         .filter(r => r.status === 'rejected')
         .map(r => `${r.reason.name}: ${r.reason.error}`);
-    console.log("errors", errors);
+    
     if (errors.length === 0) {
         console.log('✅ All DB Connected Successfully');
     } else {
