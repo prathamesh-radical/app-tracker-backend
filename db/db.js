@@ -75,4 +75,16 @@ export const buddyWalkDB = mysql.createPool({
     connectionLimit:    10,
     connectTimeout:     30000,
     queueLimit:         0,
-}); 
+});
+
+export const rgMechDB = mysql.createPool({
+    host:               process.env.RG_MECH_DB_HOST,
+    user:               process.env.RG_MECH_DB_USER,
+    password:           process.env.RG_MECH_DB_PASSWORD,
+    database:           process.env.RG_MECH_DB_NAME,
+    port:               parseInt(process.env.RG_MECH_DB_PORT || '3306'),
+    waitForConnections: true,
+    connectionLimit:    10,
+    connectTimeout:     30000,
+    queueLimit:         0,
+});

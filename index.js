@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB } from './db/db.js';
+import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB, rgMechDB } from './db/db.js';
 import AuthRoute from './routes/AuthRoute.js';
 import GetMechanicRoute from './routes/MechanicDataRoute.js';
 import GetMoneyCollectRoute from './routes/MoneyCollectDataRoute.js';
@@ -8,9 +8,10 @@ import GetGuestEntryRoute from './routes/GuestEntryDataRoute.js';
 import GetDanceStudioRoute from './routes/DanceStudioDataRoute.js';
 import GetBuddyWalkRoute from './routes/BuddyWalkDataRoute.js';
 import GetDebtDataRoute from './routes/DebtDataRoute.js';
+import GetRGMechanicRoute from './routes/RGMechanicDataRoute.js';
 
 const app = express();
-const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "6000", 10);
+const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "3000", 10);
 
 const dbPools = [
     { name: 'Mechanic', pool: mechDB },
@@ -18,7 +19,8 @@ const dbPools = [
     { name: 'Money', pool: moneyDB },
     { name: 'Entry Book', pool: entryBookDB },
     { name: 'Dance Studio', pool: danceStudioDB },
-    { name: 'Buddy Walk', pool: buddyWalkDB }
+    { name: 'Buddy Walk', pool: buddyWalkDB },
+    { name: 'RG Mechanic', pool: rgMechDB }
 ];
 
 const checkConnections = async () => {
@@ -30,14 +32,11 @@ const checkConnections = async () => {
                     return { name: db.name, status: 'success' };
                 })
                 .catch(err => {
-                    console.log('err', err);
                     const errorMessage = err.message || err.code || JSON.stringify(err);
                     throw { name: db.name, error: errorMessage };
                 })
         )
     );
-
-    console.log("results", results);
 
     const errors = results
         .filter(r => r.status === 'rejected')
@@ -67,6 +66,7 @@ app.use('/api', GetMoneyCollectRoute);
 app.use('/api', GetGuestEntryRoute);
 app.use('/api', GetDanceStudioRoute);
 app.use('/api', GetBuddyWalkRoute);
+app.use('/api', GetRGMechanicRoute);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
