@@ -55,13 +55,17 @@ export const GetUsersStepsData = async (req, res) => {
 export const GetActiveUsersCount = async (req, res) => {
     try {
         const query = `
-            SELECT COUNT(DISTINCT u.id) as activeUserCount
-            FROM users u
-            LEFT JOIN steps s ON u.id = s.user_id
-            WHERE 
-                u.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
-                OR 
-                s.step_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            SELECT 
+    u.*,
+    COUNT(DISTINCT s.id) as stepsCount
+FROM users u
+LEFT JOIN steps s ON u.id = s.user_id
+WHERE 
+    u.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+    OR 
+    s.step_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+GROUP BY u.id
+ORDER BY u.created_at DESC
         `;
 
         buddyWalkDB.query(query, (err, result) => {
@@ -72,12 +76,10 @@ export const GetActiveUsersCount = async (req, res) => {
                 });
             }
 
-            const count = result[0].activeUserCount;
-
             res.status(200).json({ 
                 message: "Recently active BuddyWalk users fetched successfully", 
                 success: true, 
-                buddyactiveCount: count,
+                buddyactiveCount: result,
                 period: "Last 30 Days"
             });
         });

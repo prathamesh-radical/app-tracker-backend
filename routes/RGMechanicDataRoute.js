@@ -4,7 +4,7 @@ import { GetActiveUsersCount, GetUsers } from "../controller/RGMechanicDataContr
 
 const GetRGMechanicRoute = express.Router();
 
-GetRGMechanicRoute.get("/get-rg-users", authenticateToken, GetUsers);
-GetRGMechanicRoute.get("/rg-active-users", authenticateToken, GetActiveUsersCount);
+GetRGMechanicRoute.get("/get-rg-mechanic-users", authenticateToken, GetUsers);
+GetRGMechanicRoute.get("/rg-mechanic-active-users", authenticateToken, GetActiveUsersCount);
 
 export default GetRGMechanicRoute;
