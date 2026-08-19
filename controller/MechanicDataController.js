@@ -110,3 +110,24 @@ ORDER BY lastBillDate DESC
         });
     }
 };
+
+export const MechanicSubscriptionData = async (req, res) => {
+    try {
+        mechDB.query("SELECT * FROM subscription_history", (err, result) => {
+            if (err) {
+                return res
+                    .status(500)
+                    .json({ message: "Error fetching values", success: false });
+            }
+            res
+                .status(200)
+                .json({
+                    message: "Subscriptions fetched successfully",
+                    success: true,
+                    mechanicpremium: result,
+                });
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", success: false });
+    }
+};
