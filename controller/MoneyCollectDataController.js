@@ -44,7 +44,6 @@ ORDER BY b.created_at DESC
 
         moneyDB.query(query, (err, result) => {
             if (err) {
-                console.error("Error fetching active money-collect statistics:", err);
                 return res.status(500).json({
                     message: "Error fetching active users count",
                     success: false
@@ -59,7 +58,6 @@ ORDER BY b.created_at DESC
             });
         });
     } catch (error) {
-        console.error("Unexpected error in MoneyCollect engagement count:", error);
         res.status(500).json({
             message: "Internal server error",
             success: false

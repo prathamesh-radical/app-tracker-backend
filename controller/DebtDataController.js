@@ -9,7 +9,6 @@ export const Debtors = async (req, res) => {
             res.status(200).json({ message: "debtors fetched successfully", success: true, debtors: result });
         });
     } catch (error) {
-        console.error("Unexpected error in Debtors controller:", error);
         res.status(500).json({ message: "Internal server error", success: false });
     }
 };
@@ -35,7 +34,6 @@ export const GetActiveUsersCount = async (req, res) => {
             });
         });
     } catch (error) {
-        console.error("Unexpected error in GetActiveUsersCount:", error);
         res.status(500).json({
             message: "Internal server error",
             success: false
