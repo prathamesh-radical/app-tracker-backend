@@ -88,3 +88,15 @@ export const rgMechDB = mysql.createPool({
     connectTimeout:     30000,
     queueLimit:         0,
 });
+
+export const rgMoneyLenderDB = mysql.createPool({
+    host:               process.env.RG_MONEY_LENDER_DB_HOST,
+    user:               process.env.RG_MONEY_LENDER_DB_USER,
+    password:           process.env.RG_MONEY_LENDER_DB_PASSWORD,
+    database:           process.env.RG_MONEY_LENDER_DB_NAME,
+    port:               parseInt(process.env.RG_MONEY_LENDER_DB_PORT || '3306'),
+    waitForConnections: true,
+    connectionLimit:    10,
+    connectTimeout:     30000,
+    queueLimit:         0,
+});

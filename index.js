@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB, rgMechDB } from './db/db.js';
+import { buddyWalkDB, danceStudioDB, debtDB, entryBookDB, mechDB, moneyDB, rgMechDB, rgMoneyLenderDB } from './db/db.js';
 import AuthRoute from './routes/AuthRoute.js';
 import GetMechanicRoute from './routes/MechanicDataRoute.js';
 import GetMoneyCollectRoute from './routes/MoneyCollectDataRoute.js';
@@ -9,6 +9,7 @@ import GetDanceStudioRoute from './routes/DanceStudioDataRoute.js';
 import GetBuddyWalkRoute from './routes/BuddyWalkDataRoute.js';
 import GetDebtDataRoute from './routes/DebtDataRoute.js';
 import GetRGMechanicRoute from './routes/RGMechanicDataRoute.js';
+import GetMoneyLenderRoute from './routes/MoneyLenderDataRoute.js';
 
 const app = express();
 const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "6000", 10);
@@ -20,7 +21,8 @@ const dbPools = [
     { name: 'Entry Book', pool: entryBookDB },
     { name: 'Dance Studio', pool: danceStudioDB },
     { name: 'Buddy Walk', pool: buddyWalkDB },
-    { name: 'RG Mechanic', pool: rgMechDB }
+    { name: 'RG Mechanic', pool: rgMechDB },
+    { name: 'Money Lender', pool: rgMoneyLenderDB },
 ];
 
 const checkConnections = async () => {
@@ -67,6 +69,7 @@ app.use('/api', GetGuestEntryRoute);
 app.use('/api', GetDanceStudioRoute);
 app.use('/api', GetBuddyWalkRoute);
 app.use('/api', GetRGMechanicRoute);
+app.use('/api', GetMoneyLenderRoute);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
