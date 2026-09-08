@@ -12,7 +12,7 @@ import GetRGMechanicRoute from './routes/RGMechanicDataRoute.js';
 import GetMoneyLenderRoute from './routes/MoneyLenderDataRoute.js';
 
 const app = express();
-const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "3001", 10);
+const PORT = parseInt(process.env.BACKEND_PORT || process.env.PORT || "6000", 10);
 
 const dbPools = [
     { name: 'Mechanic', pool: mechDB },
