@@ -65,7 +65,20 @@ ORDER BY b.created_at DESC
     }
 };
 
-export const Moneylendersettings = async (req, res) => {
+export const MoneylenderMoneyRecords = async (req, res) => {
+    try {
+        rgMoneyLenderDB.query("SELECT * FROM money_records", (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: "Error fetching values", success: false });
+            }
+            res.status(200).json({ message: "Money records of money lenders fetched successfully", success: true, moneyrecords: result });
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error", success: false });
+    }
+};
+
+export const MoneylenderSettings = async (req, res) => {
     try {
         rgMoneyLenderDB.query("SELECT * FROM app_settings", (err, result) => {
             if (err) {
